@@ -4,7 +4,7 @@
     android:id="@+id/loginPage"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bgg"
+    android:background="@drawable/tdbg1"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingTop="20dp"
