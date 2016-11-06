@@ -1,7 +1,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
+    android:background="@drawable/tdbg1"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
     android:orientation = "vertical"
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/bgg"
+
 
         android:orientation="vertical"
 
@@ -28,7 +28,7 @@
             android:layout_centerHorizontal="true"
             android:textSize="30dp"
             android:layout_gravity="center"
-            android:textColor="#00b5ff"
+            android:textColor="#f48342"
             android:paddingBottom="20dp"
             android:text="Sign Up"
             android:id="@+id/textView" />
@@ -129,7 +129,7 @@
             android:id="@+id/buttonRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#00b5ff"
+            android:background="#f48342"
             android:fontFamily="segoe UI"
             android:gravity="center"
             android:onClick="clickNext"

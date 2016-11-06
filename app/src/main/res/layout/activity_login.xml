@@ -27,16 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="-50dp"
+
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         >
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            app:mtf_image="@drawable/ic_mail_grey600_24dp"
-            >
+
             <EditText
                 android:id="@+id/uIDBox"
 
@@ -45,35 +40,41 @@
                 android:background="@drawable/customized_box"
                 android:fontFamily="segoe UI"
                 android:hint="User ID"
-                android:inputType="text"
-                android:maxLength="20"
 
+
+                android:inputType="text"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:maxLength="20"
+                android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="#222222"
                 android:textColorHint="#999999"
                 />
-        </com.github.florent37.materialtextfield.MaterialTextField>
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:mtf_image="@drawable/ic_mail_grey600_24dp"
-            >
+
+
             <EditText
                 android:id="@+id/passBox"
-                android:layout_marginTop="15dp"
+
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:background="@drawable/customized_box"
                 android:fontFamily="segoe UI"
-
-                android:hint="Password"
-                android:password="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:maxLength="20"
+                android:padding="10dp"
+                android:singleLine="true"
                 android:textColor="#222222"
                 android:textColorHint="#999999"
+                android:hint="Password"
+                android:password="true"
+
                 />
-        </com.github.florent37.materialtextfield.MaterialTextField>
+
         <Button
             android:layout_marginTop="65dp"
             android:id="@+id/loginButtonId"
