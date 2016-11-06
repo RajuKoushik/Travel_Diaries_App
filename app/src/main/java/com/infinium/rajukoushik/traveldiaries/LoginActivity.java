@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String LOGIN_URL = "http://192.168.43.137:8000/api/login/";
+    public static final String LOGIN_URL = "http://192.168.43.137:8000/td/login/";
     public String UserName = "";
     public static final String KEY_USERNAME="username";
     public static final String KEY_PASSWORD="password";
