@@ -82,8 +82,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             PrefManger prefManger = new PrefManger(LoginActivity.this);
                             prefManger.setToken(token);
-                            //Intent intent = new Intent(LoginActivity.this, IntroActivity.class);
-                            //startActivity(intent);
+                            Intent intent = new Intent(LoginActivity.this, IntroActivity.class);
+                            startActivity(intent);
 
 
                             Toast.makeText(LoginActivity.this,message,Toast.LENGTH_LONG).show();
