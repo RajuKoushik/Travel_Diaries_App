@@ -23,17 +23,17 @@ public class IntroActivity extends AppCompatActivity
         setContentView(R.layout.activity_intro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final Intent intent = new Intent(this, AddPost.class);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Add Diary", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
 
-                startActivity(intent);
+
             }
         });
 
@@ -102,5 +102,12 @@ public class IntroActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void addPost(View view) {
+
+        Intent intent = new Intent(this, AddPost.class);
+
+        startActivity(intent);
     }
 }

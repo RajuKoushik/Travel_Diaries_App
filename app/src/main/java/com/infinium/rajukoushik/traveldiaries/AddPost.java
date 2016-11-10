@@ -26,8 +26,12 @@ public class AddPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
+
+        sendRequest();
         AutoCompleteTextView autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.list_of_diaries);
         autoCompleteTextView1.setAdapter(getEmailAddressAdapter(this));
+
+
 
     }
 
