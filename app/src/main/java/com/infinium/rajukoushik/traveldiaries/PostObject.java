@@ -3,14 +3,19 @@ package com.infinium.rajukoushik.traveldiaries;
 /**
  * Created by rajukoushik on 17/10/16.
  */
-public class FoodObject
+public class PostObject
 {
     private String mText1;
     private String mText2;
     private String mText3;
+    //mText3--image url
+    //mRext2--Post title
+    //mText1--Post text
+    //Votes --votes of a post
+    private int Votes;
     private int id;
 
-    FoodObject(int id, String text1, String text2, String text3){
+    PostObject(int id, String text1, String text2, String text3){
         mText1 = text1;
         mText2 = text2;
         mText3 = text3;
@@ -19,6 +24,16 @@ public class FoodObject
 
     public int getId() {
         return this.id;
+    }
+
+    public void SetVotes(int Votes)
+    {
+        this.Votes = Votes;
+    }
+
+    public int getVotes()
+    {
+        return Votes;
     }
 
     public void setID(int id) {

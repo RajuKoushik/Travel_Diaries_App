@@ -29,4 +29,6 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.github.florent37:materialtextfield:1.0.5'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
+
 }

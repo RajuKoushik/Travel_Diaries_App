@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CartRecyclerViewAdapter extends RecyclerView
-        .Adapter<CartRecyclerViewAdapter
+public class WallRecyclerViewAdapter extends RecyclerView
+        .Adapter<WallRecyclerViewAdapter
         .DataObjectHolder> {
-    private static String LOG_TAG = "CartRecyclerViewAdapter";
-    private ArrayList<FoodObject> mDataset;
+    private static String LOG_TAG = "WallRecyclerViewAdapter";
+    private ArrayList<PostObject> mDataset;
     private static MyClickListener myClickListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -49,7 +49,7 @@ public class CartRecyclerViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public CartRecyclerViewAdapter(ArrayList<FoodObject> myDataset) {
+    public WallRecyclerViewAdapter(ArrayList<PostObject> myDataset) {
         mDataset = myDataset;
     }
 
@@ -77,12 +77,12 @@ public class CartRecyclerViewAdapter extends RecyclerView
 
     }
 
-    public FoodObject getDataObject(int i)
+    public PostObject getDataObject(int i)
     {
         return mDataset.get(i);
     }
 
-    public void addItem(FoodObject dataObj, int index) {
+    public void addItem(PostObject dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }
