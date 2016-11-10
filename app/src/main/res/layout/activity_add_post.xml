@@ -95,6 +95,7 @@
                 />
             <AutoCompleteTextView
                 android:layout_width="match_parent"
+                android:id="@+id/list_of_diaries"
                 android:layout_below="@+id/postTilte"
                 android:layout_height="wrap_content" />
             <EditText
