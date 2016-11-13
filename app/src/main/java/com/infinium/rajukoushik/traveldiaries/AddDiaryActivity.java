@@ -3,6 +3,7 @@ package com.infinium.rajukoushik.traveldiaries;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -25,8 +26,9 @@ import java.util.Map;
 
 public class AddDiaryActivity extends AppCompatActivity {
 
-    public static final String ADDPOST_URL = "http://192.168.43.178:8000/td/post/diary/";
+    public static final String ADDPOST_URL = "http://192.168.43.178:8000/td/post/post_diary/";
     String status;
+    String tempToken;
 
     private EditText editTextDiaryName;
     private EditText editTextDiaryBrief;
@@ -39,6 +41,8 @@ public class AddDiaryActivity extends AppCompatActivity {
 
     public static final String KEY_DIARYBRIEF = "diary_brief";
     public static final String KEY_DIARYNAME = "diary_name";
+    public static final String KEY_TOKEN = "token";
+
 
 
     @Override
@@ -66,6 +70,9 @@ public class AddDiaryActivity extends AppCompatActivity {
 
 
         final PrefManger pm = new PrefManger(this);
+        Log.e("tag", pm.getToken());
+
+        tempToken  = pm.getToken();
 
 
 
@@ -95,9 +102,10 @@ public class AddDiaryActivity extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_TOKEN,tempToken);
                 params.put(KEY_DIARYNAME,diary_name);
                 params.put(KEY_DIARYBRIEF,diary_brief);
-                params.put("token",pm.getToken());
+
 
 
 

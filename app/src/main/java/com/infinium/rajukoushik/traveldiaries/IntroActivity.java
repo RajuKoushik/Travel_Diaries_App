@@ -31,7 +31,7 @@ import java.util.Map;
 public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_detail/";
+    public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_details/";
     String username;
 
     String picUrl;
@@ -45,6 +45,7 @@ public class IntroActivity extends AppCompatActivity
         setContentView(R.layout.activity_intro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final Intent intent = new Intent(this, AddDiaryActivity.class);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -53,6 +54,9 @@ public class IntroActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Add Diary", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+
+                startActivity(intent);
 
 
 
@@ -142,7 +146,7 @@ public class IntroActivity extends AppCompatActivity
 
     private void getUsernameAndProfilePic() {
 
-        PrefManger pf = new PrefManger(this);
+        PrefManger pf = new PrefManger(IntroActivity.this);
         token = pf.getToken();
 
 
@@ -160,6 +164,7 @@ public class IntroActivity extends AppCompatActivity
                             JSONObject jobj = new JSONObject(response);
 
                             username = jobj.getString("username");
+                            Toast.makeText(IntroActivity.this,username.toString(), Toast.LENGTH_LONG).show();
 
                             UserDetailsManager userDetailsManager = new UserDetailsManager();
                             userDetailsManager.setUsername(username);

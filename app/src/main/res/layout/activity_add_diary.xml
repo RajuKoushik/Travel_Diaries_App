@@ -51,7 +51,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:background="@drawable/bg3"
+
             android:paddingBottom="30dp"
             android:layout_height="250dp">
 

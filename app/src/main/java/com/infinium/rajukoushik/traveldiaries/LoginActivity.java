@@ -82,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
 
                             PrefManger prefManger = new PrefManger(LoginActivity.this);
                             prefManger.setToken(token);
+
+                            Log.e("tag", token);
+
+
                             Intent intent = new Intent(LoginActivity.this, IntroActivity.class);
                             startActivity(intent);
 

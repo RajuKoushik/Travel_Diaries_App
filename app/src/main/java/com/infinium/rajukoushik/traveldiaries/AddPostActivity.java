@@ -83,6 +83,8 @@ public class AddPostActivity extends AppCompatActivity {
 
     private void sendRequest(){
 
+        final PrefManger pm = new PrefManger(this);
+
         StringRequest stringRequest = new StringRequest(JSON_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -98,7 +100,18 @@ public class AddPostActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(AddPostActivity.this,error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                });
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("token",pm.getToken());
+
+
+
+                return params;
+            }
+
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
