@@ -5,9 +5,9 @@ package com.infinium.rajukoushik.traveldiaries;
  */
 public class UserDetailsManager {
 
-    String username;
-    String firstname;
-    String lastname;
+    static  String username;
+    static String firstname;
+    static String lastname;
 
     public String getLastname() {
         return lastname;

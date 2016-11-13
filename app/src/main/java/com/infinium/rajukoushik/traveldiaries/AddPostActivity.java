@@ -30,12 +30,12 @@ public class AddPostActivity extends AppCompatActivity {
 
     public static final String JSON_URL = "http://192.168.43.178:8000/td/get/all_diaries/";
 
-    public static final String ADDPOST_URL = "http://192.168.43.178:8000/td/post/post/";
+    public static final String ADDPOST_URL = "http://192.168.43.178:8000/td/post/experience/";
     String status;
 
     private EditText editTextPostTitle;
     private EditText editTextPostText;
-    private EditText editTextPassword;
+    private TextView name;
     private EditText editTextFirstName;
     private EditText editTextLastName;
 
@@ -61,11 +61,14 @@ public class AddPostActivity extends AppCompatActivity {
 
         TextView Username = (TextView) findViewById(R.id.Username);
         UserDetailsManager udm = new UserDetailsManager();
+        Toast.makeText(AddPostActivity.this,udm.getUsername(), Toast.LENGTH_LONG).show();
 
         Username.setText(udm.getUsername());
 
         editTextPostTitle = (EditText) findViewById(R.id.postTilte);
         editTextPostText = (EditText) findViewById(R.id.postText);
+
+
 
 
 

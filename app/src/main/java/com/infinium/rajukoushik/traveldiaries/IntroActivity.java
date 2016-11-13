@@ -151,10 +151,6 @@ public class IntroActivity extends AppCompatActivity
 
 
 
-
-
-
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_USERNAME,
                 new Response.Listener<String>() {
                     @Override
@@ -168,6 +164,8 @@ public class IntroActivity extends AppCompatActivity
 
                             UserDetailsManager userDetailsManager = new UserDetailsManager();
                             userDetailsManager.setUsername(username);
+
+                            Toast.makeText(IntroActivity.this,userDetailsManager.getUsername(), Toast.LENGTH_LONG).show();
 
                             userDetailsManager.setFirstname(jobj.getString("firstname"));
                             userDetailsManager.setLastname(jobj.getString("lastname"));
