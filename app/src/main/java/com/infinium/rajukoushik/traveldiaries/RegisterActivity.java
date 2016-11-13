@@ -33,11 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
     String token;
 
 
-
-
-
-
-
     private EditText editTextUsername;
     private EditText editTextEmail;
     private EditText editTextPassword;

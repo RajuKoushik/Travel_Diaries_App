@@ -13,9 +13,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String JSON_URL_USERNAME = "http://getuserdetailsUrl";
+    String username;
+
+    String picUrl;
+
+    String token;
+    public static final String KEY_TOKEN = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +67,9 @@ public class IntroActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getUsernameAndProfilePic();
+
     }
 
     @Override
@@ -106,8 +131,68 @@ public class IntroActivity extends AppCompatActivity
 
     public void addPost(View view) {
 
-        Intent intent = new Intent(this, AddPost.class);
+        Intent intent = new Intent(this, AddPostActivity.class);
 
         startActivity(intent);
+
+
+
+
+    }
+
+    private void getUsernameAndProfilePic() {
+
+        PrefManger pf = new PrefManger(this);
+        token = pf.getToken();
+
+
+
+
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_USERNAME,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+
+                            JSONObject jobj = new JSONObject(response);
+
+                            username = jobj.getString("username");
+
+                            UserDetailsManager userDetailsManager = new UserDetailsManager();
+                            userDetailsManager.setUsername(username);
+
+                            userDetailsManager.setFirstname(jobj.getString("firstname"));
+                            userDetailsManager.setLastname(jobj.getString("lastname"));
+
+                            //uncomment after image integration
+                            //picUrl = jobj.getString("picUrl");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(IntroActivity.this,error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_TOKEN,token);
+
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
     }
 }

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.infinium.rajukoushik.traveldiaries.AddPost">
+    tools:context=".AddPostActivity">
 
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/floating_search_view"
@@ -101,7 +101,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_below="@+id/postTilte" />
+                android:id="@+id/postText"
+                android:layout_below="@+id/list_of_diaries" />
 
 
 
@@ -117,7 +118,7 @@
         android:background="#f48342"
         android:fontFamily="segoe UI"
         android:gravity="center"
-        android:onClick="btnLogin"
+        android:onClick="addPostBtn"
         android:textColor="#ffffff"
         android:layout_below="@+id/card_view1"
         android:text="ADD POST"
