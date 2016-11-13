@@ -65,6 +65,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         final String diary_brief= editTextDiaryBrief.getText().toString().trim();
 
 
+        final PrefManger pm = new PrefManger(this);
 
 
 
@@ -96,6 +97,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put(KEY_DIARYNAME,diary_name);
                 params.put(KEY_DIARYBRIEF,diary_brief);
+                params.put("token",pm.getToken());
 
 
 

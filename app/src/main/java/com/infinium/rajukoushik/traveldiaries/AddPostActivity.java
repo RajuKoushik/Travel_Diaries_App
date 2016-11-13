@@ -46,8 +46,6 @@ public class AddPostActivity extends AppCompatActivity {
     public static final String KEY_POSTTITLE = "post_title";
     public static final String KEY_POSTTEXT = "post_text";
     public static final String KEY_DIARYNAME = "diary_name";
-    public static final String KEY_FIRSTNAME = "first_name";
-    public static final String KEY_LASTNAME = "last_name";
 
 
 
@@ -120,7 +118,7 @@ public class AddPostActivity extends AppCompatActivity {
         final String diary_name = autoCompleteTextView1.getText().toString().trim();
 
 
-
+        final PrefManger pm = new PrefManger(this);
 
 
 
@@ -148,9 +146,11 @@ public class AddPostActivity extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
+                params.put("token",pm.getToken());
                 params.put(KEY_POSTTITLE,post_title);
                 params.put(KEY_POSTTEXT,post_text);
                 params.put(KEY_DIARYNAME, diary_name);
+
 
 
                 return params;

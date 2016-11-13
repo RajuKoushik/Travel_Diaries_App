@@ -31,7 +31,7 @@ import java.util.Map;
 public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String JSON_URL_USERNAME = "http://getuserdetailsUrl";
+    public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_detail/";
     String username;
 
     String picUrl;
