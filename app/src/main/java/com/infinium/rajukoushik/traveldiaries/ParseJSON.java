@@ -1,5 +1,7 @@
 package com.infinium.rajukoushik.traveldiaries;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,9 +12,10 @@ import java.util.ArrayList;
  * Created by rajukoushik on 11/11/16.
  */
 public class ParseJSON {
-    ArrayList<String> diariesList;
+    static ArrayList<String> diariesList;
 
     public static final String JSON_ARRAY = "diaries";
+   static DiaryListManager diaryListManager;
 
 
     private JSONArray diaries = null;
@@ -32,6 +35,7 @@ public class ParseJSON {
 
 
 
+
             diariesList = new ArrayList<String>();
             JSONArray jsonArray = (JSONArray)diaries;
             if (jsonArray != null) {
@@ -40,8 +44,9 @@ public class ParseJSON {
                     diariesList.add(jsonArray.get(i).toString());
                 }
             }
+            Log.e("test",diariesList.get(0));
 
-            DiaryListManager diaryListManager = new DiaryListManager();
+            diaryListManager = new DiaryListManager();
             diaryListManager.setDiariesList(diariesList);
 
 

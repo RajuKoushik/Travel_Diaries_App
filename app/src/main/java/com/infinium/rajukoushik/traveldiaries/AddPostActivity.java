@@ -1,9 +1,11 @@
 package com.infinium.rajukoushik.traveldiaries;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -67,6 +69,8 @@ public class AddPostActivity extends AppCompatActivity {
 
         editTextPostTitle = (EditText) findViewById(R.id.postTilte);
         editTextPostText = (EditText) findViewById(R.id.postText);
+        DiaryListManager dlm = new DiaryListManager();
+        //Log.e("testing",dlm.getDiariesList().get(0));
 
 
 
@@ -88,7 +92,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         final PrefManger pm = new PrefManger(this);
 
-        StringRequest stringRequest = new StringRequest(JSON_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,JSON_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
