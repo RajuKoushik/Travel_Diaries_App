@@ -3,6 +3,8 @@ package com.infinium.rajukoushik.traveldiaries;
 /**
  * Created by rajukoushik on 17/10/16.
  */
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,15 +12,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WallRecyclerViewAdapter extends RecyclerView
         .Adapter<WallRecyclerViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "WallRecyclerViewAdapter";
+    public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_profile/";
+    private static String token;
+    private static String KEY_TOKEN = "token";
+    private static String first_name;
+    private static String last_name;
+    static Context context;
     private ArrayList<PostObject> mDataset;
     private static MyClickListener myClickListener;
+    static String username;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
@@ -34,9 +56,22 @@ public class WallRecyclerViewAdapter extends RecyclerView
             post_title = (TextView) itemView.findViewById(R.id.post_title);
             post_text =(TextView) itemView.findViewById(R.id.post_text);
 
+            username_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String temp = (String) username_post.getText();
+                    sendUserProfileRequest(temp);
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    intent.putExtra("username",username);
+                    intent.putExtra("first_name",first_name);
+                    intent.putExtra("last_name",last_name);
+                    context.startActivity(intent);
+                }
+            });
+
             //username_post.setOnClickListener();
             Log.i(LOG_TAG, "Adding Listener");
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
         }
 
         @Override
@@ -49,8 +84,64 @@ public class WallRecyclerViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public WallRecyclerViewAdapter(ArrayList<PostObject> myDataset) {
+    public WallRecyclerViewAdapter(ArrayList<PostObject> myDataset, Context context) {
         mDataset = myDataset;
+        this.context = context;
+    }
+
+    public static void sendUserProfileRequest(final String name)
+    {
+        PrefManger pf = new PrefManger(context);
+        token = pf.getToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_USERNAME,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+
+                            JSONObject jobj = new JSONObject(response);
+
+                            username = jobj.getString("username");
+                            first_name = jobj.getString("first_name");
+                            last_name = jobj.getString("last_name");
+
+                            //Toast.makeText(IntroActivity.this,username.toString(), Toast.LENGTH_LONG).show();
+
+                            //UserDetailsManager userDetailsManager = new UserDetailsManager();
+                            //userDetailsManager.setUsername(username);
+
+                            //Toast.makeText(IntroActivity.this,userDetailsManager.getUsername(), Toast.LENGTH_LONG).show();
+
+                            // userDetailsManager.setFirstname(jobj.getString("firstname"));
+                            //userDetailsManager.setLastname(jobj.getString("lastname"));
+
+                            //uncomment after image integration
+                            //picUrl = jobj.getString("picUrl");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(IntroActivity.this,error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_TOKEN,token);
+                params.put("name",name);
+
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 
     @Override

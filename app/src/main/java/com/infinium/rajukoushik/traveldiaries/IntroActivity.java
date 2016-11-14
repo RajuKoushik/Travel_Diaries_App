@@ -224,7 +224,7 @@ public class IntroActivity extends AppCompatActivity
 
     private void pushDataToAdapter(ArrayList<PostObject> postList) {
 
-        mAdapter = new WallRecyclerViewAdapter(postList);
+        mAdapter = new WallRecyclerViewAdapter(postList,this);
         mRecyclerView.setAdapter(mAdapter);
         //end of card
     }
