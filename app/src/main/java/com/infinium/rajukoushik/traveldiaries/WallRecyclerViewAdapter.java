@@ -104,6 +104,7 @@ public class WallRecyclerViewAdapter extends RecyclerView
                             username = jobj.getString("username");
                             first_name = jobj.getString("first_name");
                             last_name = jobj.getString("last_name");
+                            Log.e("teststts",username);
 
                             //Toast.makeText(IntroActivity.this,username.toString(), Toast.LENGTH_LONG).show();
 
