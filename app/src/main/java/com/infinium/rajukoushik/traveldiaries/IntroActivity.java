@@ -107,7 +107,6 @@ public class IntroActivity extends AppCompatActivity
         getWallPosts();
         sendRequest();
         autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.list_of_diaries);
-        autoCompleteTextView1.setAdapter(getEmailAddressAdapter(this));
 
 
 
@@ -128,7 +127,7 @@ public class IntroActivity extends AppCompatActivity
 
 
 
-        ArrayList<String> diariesList = dlm.getDiariesList();
+        //ArrayList<String> diariesList = dlm.getDiariesList();
 
         Log.e("testtt",diariesList.get(0));
         return new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, diariesList);
@@ -138,7 +137,7 @@ public class IntroActivity extends AppCompatActivity
         JSONObject jsonObject=null;
         try {
             jsonObject = new JSONObject(json);
-            diaries = jsonObject.getJSONArray(JSON_ARRAY);
+            diaries = jsonObject.getJSONArray("diaries");
 
 
 
@@ -155,8 +154,6 @@ public class IntroActivity extends AppCompatActivity
             Log.e("test",diariesList.get(0));
 
             autoCompleteTextView1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, diariesList));
-
-
 
 
 
