@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 android:text="Share Your Experiences"
                 />
 
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:id="@+id/Username"
+                android:textStyle="bold"
 
 
                 android:text="Raju Koushik"
@@ -79,16 +81,19 @@
                 android:id="@+id/postTilte"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profilePic"
+                android:hint="Post title"
                 />
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:id="@+id/list_of_diaries"
                 android:layout_below="@+id/postTilte"
+                android:hint="Travel Diary - Location"
                 android:layout_height="wrap_content" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:id="@+id/postText"
+                android:hint="post text"
                 android:layout_below="@+id/list_of_diaries" />
 
 
