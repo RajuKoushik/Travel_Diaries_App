@@ -1,5 +1,6 @@
 package com.infinium.rajukoushik.traveldiaries;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -40,7 +43,8 @@ public class IntroActivity extends AppCompatActivity
     public static final String JSON_URL_WALLPOSTS = "http://192.168.43.178:8000/td/get/wall_posts/";
     String username;
     static ArrayList<String> diariesList;
-
+    AutoCompleteTextView autoCompleteTextView1;
+    public static final String JSON_URL = "http://192.168.43.178:8000/td/get/all_diaries/";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -49,6 +53,9 @@ public class IntroActivity extends AppCompatActivity
     private static ArrayList<PostObject> dataset = new ArrayList<>();
     private static ArrayList<PostObject> postList = new ArrayList<>();
     private static ArrayList<String> titlesList = new ArrayList<>();
+
+    private DiaryListManager dlm;
+
 
     String picUrl;
     private JSONArray diaries = null;
@@ -98,6 +105,11 @@ public class IntroActivity extends AppCompatActivity
         getUsernameAndProfilePic();
 
         getWallPosts();
+        sendRequest();
+        autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.list_of_diaries);
+        autoCompleteTextView1.setAdapter(getEmailAddressAdapter(this));
+
+
 
 
         //card
@@ -109,6 +121,85 @@ public class IntroActivity extends AppCompatActivity
 
 
     }
+
+
+    private ArrayAdapter<String> getEmailAddressAdapter(Context context) {
+
+
+
+
+        ArrayList<String> diariesList = dlm.getDiariesList();
+
+        Log.e("testtt",diariesList.get(0));
+        return new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, diariesList);
+    }
+
+    protected void parseJSON(String json){
+        JSONObject jsonObject=null;
+        try {
+            jsonObject = new JSONObject(json);
+            diaries = jsonObject.getJSONArray(JSON_ARRAY);
+
+
+
+
+
+            diariesList = new ArrayList<String>();
+            JSONArray jsonArray = (JSONArray)diaries;
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    diariesList.add(jsonArray.get(i).toString());
+                }
+            }
+            Log.e("test",diariesList.get(0));
+
+            autoCompleteTextView1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, diariesList));
+
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendRequest(){
+
+        final PrefManger pm = new PrefManger(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,JSON_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //showJSON(response);
+
+                        parseJSON(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(IntroActivity.this,error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("token",pm.getToken());
+
+
+
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
     public void set_dataset(ArrayList<PostObject> a) {
         this.dataset = a;
     }
@@ -296,6 +387,7 @@ public class IntroActivity extends AppCompatActivity
 
 
     }
+
 
     private void getUsernameAndProfilePic() {
 

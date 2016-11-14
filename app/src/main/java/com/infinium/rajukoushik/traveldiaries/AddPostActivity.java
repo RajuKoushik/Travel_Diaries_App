@@ -70,6 +70,7 @@ public class AddPostActivity extends AppCompatActivity {
         sendRequest();
         autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.list_of_diaries);
 
+
         TextView Username = (TextView) findViewById(R.id.Username);
         UserDetailsManager udm = new UserDetailsManager();
         Toast.makeText(AddPostActivity.this,udm.getUsername(), Toast.LENGTH_LONG).show();
