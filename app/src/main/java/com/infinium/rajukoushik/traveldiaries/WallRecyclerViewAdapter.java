@@ -23,18 +23,18 @@ public class WallRecyclerViewAdapter extends RecyclerView
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
-        TextView label;
-        TextView dateTime;
-        ImageView tempUrl;
+        TextView username_post;
+        TextView post_title;
+        TextView post_text;
 
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            label = (TextView) itemView.findViewById(R.id.textView);
-            dateTime = (TextView) itemView.findViewById(R.id.textView2);
-            tempUrl =(ImageView) itemView.findViewById(R.id.imgView1);
+            username_post = (TextView) itemView.findViewById(R.id.username_post);
+            post_title = (TextView) itemView.findViewById(R.id.post_title);
+            post_text =(TextView) itemView.findViewById(R.id.post_text);
 
-
+            //username_post.setOnClickListener();
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -67,11 +67,12 @@ public class WallRecyclerViewAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.label.setText(mDataset.get(position).getmText1());
-        holder.dateTime.setText(mDataset.get(position).getmText2());
-        String url = "http://192.168.43.137:8000" + mDataset.get(position).getmText3();
+        holder.username_post.setText(mDataset.get(position).getmText1());
+        holder.post_title.setText(mDataset.get(position).getmText2());
+        holder.post_text.setText(mDataset.get(position).getmText3());
+        //String url = "http://192.168.43.137:8000" + mDataset.get(position).getmText3();
 
-        new ImageLoadTask(url, holder.tempUrl).execute();
+        //new ImageLoadTask(url, holder.tempUrl).execute();
 
 
 

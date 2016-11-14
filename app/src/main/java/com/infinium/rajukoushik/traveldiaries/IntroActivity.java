@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -39,12 +41,27 @@ public class IntroActivity extends AppCompatActivity
     String username;
     static ArrayList<String> diariesList;
 
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private static String LOG_TAG = "CardViewActivity";
+    private static ArrayList<PostObject> dataset = new ArrayList<>();
+    private static ArrayList<PostObject> postList = new ArrayList<>();
+    private static ArrayList<String> titlesList = new ArrayList<>();
+
     String picUrl;
     private JSONArray diaries = null;
 
     String token;
     public static final String KEY_TOKEN = "token";
-    public static final String JSON_ARRAY = "wall";
+    public static final String JSON_ARRAY = "post_usernames";
+    private JSONArray titles;
+    private JSONArray texts;
+    private ArrayList<String> textsList;
+    private JSONArray names;
+    private ArrayList<String> namesList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +100,22 @@ public class IntroActivity extends AppCompatActivity
         getWallPosts();
 
 
+        //card
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+
+    }
+    public void set_dataset(ArrayList<PostObject> a) {
+        this.dataset = a;
+    }
+
+    private ArrayList<PostObject> getDataSet() {
+
+        return this.dataset;
     }
 
     private void getWallPosts() {
@@ -101,19 +134,58 @@ public class IntroActivity extends AppCompatActivity
                             JSONObject jobj = new JSONObject(response);
 
                             jobj = new JSONObject(response);
-                            diaries = jobj.getJSONArray(JSON_ARRAY);
+                            titles = jobj.getJSONArray("post_titles");
 
-                            /*
-                            diariesList = new ArrayList<String>();
-                            JSONArray jsonArray = (JSONArray)diaries;
+
+                            titlesList = new ArrayList<String>();
+                            JSONArray jsonArray = (JSONArray)titles;
                             if (jsonArray != null) {
                                 int len = jsonArray.length();
                                 for (int i=0;i<len;i++){
-                                    diariesList.add(jsonArray.get(i).toString());
+
+                                    titlesList.add(jsonArray.get(i).toString());
                                 }
                             }
-                            */
-                            Log.e("test",response);
+
+                            Log.e("test",titlesList.get(0));
+
+
+                            //dfg
+
+                            texts = jobj.getJSONArray("post_usernames");
+
+
+                            textsList = new ArrayList<String>();
+                            JSONArray jsonArray1 = (JSONArray)texts;
+                            if (jsonArray1 != null) {
+                                int len = jsonArray1.length();
+                                for (int i=0;i<len;i++){
+                                    textsList.add(jsonArray1.get(i).toString());
+                                }
+                            }
+
+                            Log.e("test",textsList.get(0));
+                            //
+                            names = jobj.getJSONArray("post_texts");
+
+
+                            namesList = new ArrayList<String>();
+                            JSONArray jsonArray2 = (JSONArray)names;
+                            if (jsonArray2 != null) {
+                                int len = jsonArray2.length();
+                                for (int i=0;i<len;i++){
+                                    namesList.add(jsonArray2.get(i).toString());
+                                }
+                            }
+
+                            Log.e("test",namesList.get(0));
+
+
+                            for(int i=0;i<namesList.size();i++){
+                                postList.add(i,new PostObject(i,textsList.get(i),titlesList.get(i),namesList.get(i)));
+                            }
+
+                            pushDataToAdapter(postList);
 
 
                             //Toast.makeText(IntroActivity.this,response.toString(), Toast.LENGTH_LONG).show();
@@ -148,6 +220,13 @@ public class IntroActivity extends AppCompatActivity
         requestQueue.add(stringRequest);
 
 
+    }
+
+    private void pushDataToAdapter(ArrayList<PostObject> postList) {
+
+        mAdapter = new WallRecyclerViewAdapter(postList);
+        mRecyclerView.setAdapter(mAdapter);
+        //end of card
     }
 
     @Override

@@ -12,7 +12,7 @@ public class PostObject
     //mRext2--Post title
     //mText1--Post text
     //Votes --votes of a post
-    private int Votes;
+
     private int id;
 
     PostObject(int id, String text1, String text2, String text3){
@@ -26,15 +26,7 @@ public class PostObject
         return this.id;
     }
 
-    public void SetVotes(int Votes)
-    {
-        this.Votes = Votes;
-    }
 
-    public int getVotes()
-    {
-        return Votes;
-    }
 
     public void setID(int id) {
         this.id = id;
