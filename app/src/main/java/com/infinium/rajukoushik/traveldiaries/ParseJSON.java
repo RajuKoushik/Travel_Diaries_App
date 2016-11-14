@@ -21,9 +21,10 @@ public class ParseJSON {
     private JSONArray diaries = null;
 
     private String json;
-
-    public ParseJSON(String json){
+    private DiaryListManager dlm;
+    public ParseJSON(String json , DiaryListManager dlm){
         this.json = json;
+        this.dlm=dlm;
     }
 
     protected void parseJSON(){
@@ -46,8 +47,7 @@ public class ParseJSON {
             }
             Log.e("test",diariesList.get(0));
 
-            diaryListManager = new DiaryListManager();
-            diaryListManager.setDiariesList(diariesList);
+            dlm.setDiariesList(diariesList);
 
 
 

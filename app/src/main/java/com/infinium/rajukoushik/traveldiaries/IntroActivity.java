@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,9 +23,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,13 +35,16 @@ public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_details/";
+    public static final String JSON_URL_WALLPOSTS = "http://192.168.43.178:8000/td/get/wall_posts/";
     String username;
+    static ArrayList<String> diariesList;
 
     String picUrl;
+    private JSONArray diaries = null;
 
     String token;
     public static final String KEY_TOKEN = "token";
-
+    public static final String JSON_ARRAY = "wall";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +79,74 @@ public class IntroActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getUsernameAndProfilePic();
+
+        getWallPosts();
+
+
+    }
+
+    private void getWallPosts() {
+
+        PrefManger pf = new PrefManger(IntroActivity.this);
+        token = pf.getToken();
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_WALLPOSTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+
+                            JSONObject jobj = new JSONObject(response);
+
+                            jobj = new JSONObject(response);
+                            diaries = jobj.getJSONArray(JSON_ARRAY);
+
+                            /*
+                            diariesList = new ArrayList<String>();
+                            JSONArray jsonArray = (JSONArray)diaries;
+                            if (jsonArray != null) {
+                                int len = jsonArray.length();
+                                for (int i=0;i<len;i++){
+                                    diariesList.add(jsonArray.get(i).toString());
+                                }
+                            }
+                            */
+                            Log.e("test",response);
+
+
+                            //Toast.makeText(IntroActivity.this,response.toString(), Toast.LENGTH_LONG).show();
+
+
+
+                            //uncomment after image integration
+                            //picUrl = jobj.getString("picUrl");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(IntroActivity.this,error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_TOKEN,token);
+
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
 
     }
 
@@ -167,8 +241,8 @@ public class IntroActivity extends AppCompatActivity
 
                             Toast.makeText(IntroActivity.this,userDetailsManager.getUsername(), Toast.LENGTH_LONG).show();
 
-                            userDetailsManager.setFirstname(jobj.getString("firstname"));
-                            userDetailsManager.setLastname(jobj.getString("lastname"));
+                           // userDetailsManager.setFirstname(jobj.getString("firstname"));
+                            //userDetailsManager.setLastname(jobj.getString("lastname"));
 
                             //uncomment after image integration
                             //picUrl = jobj.getString("picUrl");

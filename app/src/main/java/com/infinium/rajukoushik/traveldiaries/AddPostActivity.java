@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,7 +49,16 @@ public class AddPostActivity extends AppCompatActivity {
     public static final String KEY_POSTTITLE = "post_title";
     public static final String KEY_POSTTEXT = "post_text";
     public static final String KEY_DIARYNAME = "diary_name";
+    static ArrayList<String> diariesList;
 
+    public static final String JSON_ARRAY = "diaries";
+    static DiaryListManager diaryListManager;
+
+
+    private JSONArray diaries = null;
+
+    private String json;
+    private DiaryListManager dlm;
 
 
 
@@ -59,7 +69,6 @@ public class AddPostActivity extends AppCompatActivity {
 
         sendRequest();
         autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.list_of_diaries);
-        autoCompleteTextView1.setAdapter(getEmailAddressAdapter(this));
 
         TextView Username = (TextView) findViewById(R.id.Username);
         UserDetailsManager udm = new UserDetailsManager();
@@ -81,11 +90,44 @@ public class AddPostActivity extends AppCompatActivity {
 
 
     private ArrayAdapter<String> getEmailAddressAdapter(Context context) {
-        DiaryListManager dlm = new DiaryListManager();
+
+
         ArrayList<String> diariesList = dlm.getDiariesList();
 
-
+        Log.e("testtt",diariesList.get(0));
         return new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, diariesList);
+    }
+
+
+    protected void parseJSON(String json){
+        JSONObject jsonObject=null;
+        try {
+            jsonObject = new JSONObject(json);
+            diaries = jsonObject.getJSONArray(JSON_ARRAY);
+
+
+
+
+
+            diariesList = new ArrayList<String>();
+            JSONArray jsonArray = (JSONArray)diaries;
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    diariesList.add(jsonArray.get(i).toString());
+                }
+            }
+            Log.e("test",diariesList.get(0));
+
+            autoCompleteTextView1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, diariesList));
+
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendRequest(){
@@ -98,8 +140,7 @@ public class AddPostActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         //showJSON(response);
 
-                        ParseJSON pj = new ParseJSON(response);
-                        pj.parseJSON();
+                        parseJSON(response);
                     }
                 },
                 new Response.ErrorListener() {

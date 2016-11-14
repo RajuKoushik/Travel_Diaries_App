@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class DiaryListManager {
 
-    static ArrayList<String> diariesList;
+    public ArrayList<String> diariesList;
 
     public void setDiariesList(ArrayList<String> diariesList) {
         this.diariesList = diariesList;
