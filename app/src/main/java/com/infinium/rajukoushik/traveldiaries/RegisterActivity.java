@@ -74,7 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
                             token = jobj.getString("token");
                             PrefManger prefManger = new PrefManger(RegisterActivity.this);
                             prefManger.setToken(token);
-                            Intent intent = new Intent(RegisterActivity.this, IntroActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            Toast.makeText(RegisterActivity.this,"Registered User", Toast.LENGTH_LONG).show();
                             startActivity(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();

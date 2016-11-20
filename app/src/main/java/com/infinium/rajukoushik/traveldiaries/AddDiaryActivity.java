@@ -1,6 +1,7 @@
 package com.infinium.rajukoushik.traveldiaries;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,6 +62,8 @@ public class AddDiaryActivity extends AppCompatActivity {
     public void addDIaryBtn(View view) {
 
         addDiary();
+        Intent intent = new Intent(this, IntroActivity.class);
+        startActivity(intent);
     }
 
     private void addDiary() {

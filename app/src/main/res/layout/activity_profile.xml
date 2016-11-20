@@ -31,7 +31,7 @@
                     android:id="@+id/profile_image"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:background="@drawable/btnbg1"
+                    android:background="@drawable/ppic"
                     app:layout_collapseMode="pin"
                     />
             </RelativeLayout>

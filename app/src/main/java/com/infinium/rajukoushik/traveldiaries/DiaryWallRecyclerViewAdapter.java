@@ -5,7 +5,6 @@ package com.infinium.rajukoushik.traveldiaries;
  */
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WallRecyclerViewAdapter extends RecyclerView
-        .Adapter<WallRecyclerViewAdapter
+public class DiaryWallRecyclerViewAdapter extends RecyclerView
+        .Adapter<DiaryWallRecyclerViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "WallRecyclerViewAdapter";
     public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_profile/";
@@ -40,7 +38,6 @@ public class WallRecyclerViewAdapter extends RecyclerView
     private static String last_name;
     static Context context;
     private ArrayList<PostObject> mDataset;
-    private ArrayList<String> picList;
     private static MyClickListener myClickListener;
     static String username;
 
@@ -88,7 +85,7 @@ public class WallRecyclerViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public WallRecyclerViewAdapter(ArrayList<PostObject> myDataset, Context context) {
+    public DiaryWallRecyclerViewAdapter(ArrayList<PostObject> myDataset, Context context) {
         mDataset = myDataset;
         this.context = context;
     }
@@ -166,7 +163,9 @@ public class WallRecyclerViewAdapter extends RecyclerView
         holder.username_post.setText(mDataset.get(position).getmText1());
         holder.post_title.setText(mDataset.get(position).getmText2());
         holder.post_text.setText(mDataset.get(position).getmText3());
+        //String url = "http://192.168.43.137:8000" + mDataset.get(position).getmText3();
 
+        //new ImageLoadTask(url, holder.tempUrl).execute();
 
         String url = mDataset.get(position).getmText4();
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.infinium.rajukoushik.traveldiaries">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -25,7 +27,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddPostActivity" />
         <activity android:name=".AddDiaryActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity
+            android:name=".DiaryWallActivity"
+            android:label="@string/title_activity_diary_wall"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

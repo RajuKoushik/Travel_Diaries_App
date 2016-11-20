@@ -8,6 +8,7 @@ public class PostObject
     private String mText1;
     private String mText2;
     private String mText3;
+    private String mText4;
     //mText3--image url
     //mRext2--Post title
     //mText1--Post text
@@ -15,10 +16,12 @@ public class PostObject
 
     private int id;
 
-    PostObject(int id, String text1, String text2, String text3){
+    PostObject(int id, String text1, String text2, String text3, String text4){
         mText1 = text1;
         mText2 = text2;
         mText3 = text3;
+        mText4 = text4;
+
         this.id = id;
     }
 
@@ -26,7 +29,13 @@ public class PostObject
         return this.id;
     }
 
+    public String getmText4() {
+        return mText4;
+    }
 
+    public void setmText4(String mText4) {
+        this.mText4 = mText4;
+    }
 
     public void setID(int id) {
         this.id = id;

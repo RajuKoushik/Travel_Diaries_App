@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -54,8 +55,10 @@ public class IntroActivity extends AppCompatActivity
     private static ArrayList<PostObject> postList = new ArrayList<>();
     private static ArrayList<String> titlesList = new ArrayList<>();
 
-    private DiaryListManager dlm;
+    private ArrayList<String> picList;
 
+    private DiaryListManager dlm;
+    static EditText autocom;
 
     String picUrl;
     private JSONArray diaries = null;
@@ -68,6 +71,10 @@ public class IntroActivity extends AppCompatActivity
     private ArrayList<String> textsList;
     private JSONArray names;
     private ArrayList<String> namesList;
+
+
+    static String tempo;
+    private JSONArray picUrls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +112,8 @@ public class IntroActivity extends AppCompatActivity
         getUsernameAndProfilePic();
 
         getWallPosts();
+        autocom = (EditText) findViewById(R.id.list_of_diaries);
+
         sendRequest();
         autoCompleteTextView1 = (AutoCompleteTextView) findViewById(R.id.list_of_diaries);
 
@@ -235,7 +244,7 @@ public class IntroActivity extends AppCompatActivity
                                 }
                             }
 
-                            Log.e("test",titlesList.get(0));
+                            //Log.e("test",titlesList.get(0));
 
 
                             //dfg
@@ -252,7 +261,7 @@ public class IntroActivity extends AppCompatActivity
                                 }
                             }
 
-                            Log.e("test",textsList.get(0));
+                           // Log.e("test",textsList.get(0));
                             //
                             names = jobj.getJSONArray("post_texts");
 
@@ -265,12 +274,33 @@ public class IntroActivity extends AppCompatActivity
                                     namesList.add(jsonArray2.get(i).toString());
                                 }
                             }
+                            picUrls = jobj.getJSONArray("post_pic_url");
 
-                            Log.e("test",namesList.get(0));
+                            picList = new ArrayList<String>();
+                            JSONArray jsonArray3 = (JSONArray)picUrls;
+                            if(jsonArray3 != null){
+                                int len = jsonArray3.length();
+                                for(int i =0;i<len;i++){
+                                    picList.add(jsonArray3.get(i).toString());
+                                }
+                            }
+
+                           // Log.e("test",namesList.get(0));
+                            if(namesList.size() == 0)
+                            {
+                                postList.add(0,new PostObject(0,"Default Post","Default Post","Default Post","http://sm.uploads.im/0ptiu.jpg"));
+                            }
+
+                            else {
 
 
-                            for(int i=0;i<namesList.size();i++){
-                                postList.add(i,new PostObject(i,textsList.get(i),titlesList.get(i),namesList.get(i)));
+                                for (int i = 0; i < namesList.size(); i++) {
+
+
+                                    postList.add(i, new PostObject(i, textsList.get(i), titlesList.get(i), namesList.get(i), picList.get(i)));
+
+
+                                }
                             }
 
                             pushDataToAdapter(postList);
@@ -439,5 +469,15 @@ public class IntroActivity extends AppCompatActivity
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
+    }
+
+    public void searchBtn(View view) {
+
+        Intent intent = new Intent(this, DiaryWallActivity.class);
+
+        tempo = autocom.getText().toString();
+
+        intent.putExtra("diary_name",tempo);
+        startActivity(intent);
     }
 }

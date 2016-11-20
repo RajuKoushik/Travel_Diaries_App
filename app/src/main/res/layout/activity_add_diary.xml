@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
+
         android:elevation="5dp"
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="10dp">
@@ -42,6 +43,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+
         android:layout_margin="5dp"
         android:elevation="5dp"
 
@@ -51,7 +53,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-
+            android:background="@drawable/baba"
             android:paddingBottom="30dp"
             android:layout_height="250dp">
 
@@ -73,6 +75,8 @@
                 android:textColor="#222222"
                 android:ems="10"
                 android:id="@+id/diaryName" />
+
+
 
 
 
