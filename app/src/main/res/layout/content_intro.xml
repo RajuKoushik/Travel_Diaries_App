@@ -29,6 +29,7 @@
             android:id="@+id/card_vieww"
             android:layout_width="fill_parent"
             android:layout_below="@+id/card_vieww1"
+            android:background="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
@@ -50,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/list_of_diaries"
                 android:layout_below="@+id/tatat"
-                android:hint="Travel Diary - Location"
+                android:hint="Explore a Diary - Delhi"
 
                 android:layout_height="match_parent" />
 
@@ -73,18 +74,22 @@
                 android:layout_margin="5dp"
                 android:layout_below="@id/card_vieww"
                 android:elevation="5dp"
+                app:cardBackgroundColor="@color/colorPrimary"
                 card_view:cardCornerRadius="2dp"
                 card_view:contentPadding="10dp">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
+                    android:background="@color/colorPrimary"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
+                        android:textStyle="bold"
                         android:id="@+id/addPostText"
+                        android:textColor="#ffffff"
                         android:onClick="addPost"
                         android:text="Wish to share your experience ?"
                         />
