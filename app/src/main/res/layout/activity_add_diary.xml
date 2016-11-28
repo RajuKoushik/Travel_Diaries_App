@@ -53,7 +53,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:background="@drawable/baba"
+            android:background="@color/cardview_dark_background"
             android:paddingBottom="30dp"
             android:layout_height="250dp">
 
