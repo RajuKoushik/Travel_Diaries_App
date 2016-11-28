@@ -122,6 +122,7 @@ public class IntroActivity extends AppCompatActivity
 
         //card
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -344,6 +345,8 @@ public class IntroActivity extends AppCompatActivity
 
         mAdapter = new WallRecyclerViewAdapter(postList,this);
         mRecyclerView.setAdapter(mAdapter);
+        //inavlidate to reload the content with the refreshed data avoiding the extra dummy feeds
+        mRecyclerView.invalidate();
         //end of card
     }
 

@@ -170,7 +170,16 @@ public class WallRecyclerViewAdapter extends RecyclerView
 
         String url = mDataset.get(position).getmText4();
 
-        new ImageLoadTask(url, holder.post_image).execute();
+        ImageLoadTask imageLoadTask = new ImageLoadTask(url,holder.post_image);
+
+
+
+        imageLoadTask.execute();
+
+
+
+
+       // new ImageLoadTask(url, holder.post_image).execute();
 
 
 
