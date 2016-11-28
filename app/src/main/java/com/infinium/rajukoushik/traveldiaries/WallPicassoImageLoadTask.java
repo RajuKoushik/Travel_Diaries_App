@@ -22,42 +22,27 @@ public class WallPicassoImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
     private String url;
     private ImageView imageView;
+    private  Context context;
 
-    static Context context;
-    public WallPicassoImageLoadTask(String url, ImageView imageView) {
+
+    public WallPicassoImageLoadTask(String url, ImageView imageView, Context context) {
         this.url = url;
         this.imageView = imageView;
+        this.context = context;
     }
 
     @Override
     protected Bitmap doInBackground(Void... params) {
 
+        try
+        {
+            Picasso.with(context).load(url).fit().into(imageView);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-        Target target = new Target() {
-
-            @Override
-            public void onPrepareLoad(Drawable arg0) {
-
-
-            }
-
-            @Override
-            public void onBitmapLoaded(Bitmap arg0, Picasso.LoadedFrom arg1) {
-
-                imageView.setImageBitmap(arg0);
-
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        };
-
-        Picasso.with(context.getApplicationContext())
-                .load(url)
-                .into(target);
         return null;
     }
 
