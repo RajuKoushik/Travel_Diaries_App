@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -169,7 +170,9 @@ public class DiaryWallRecyclerViewAdapter extends RecyclerView
 
         String url = mDataset.get(position).getmText4();
 
-        new ImageLoadTask(url, holder.post_image).execute();
+        Picasso.with(context).load(url).fit().into(holder.post_image);
+
+        //new ImageLoadTask(url, holder.post_image).execute();
 
 
 
