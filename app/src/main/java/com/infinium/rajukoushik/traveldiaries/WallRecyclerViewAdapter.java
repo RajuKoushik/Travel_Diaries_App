@@ -171,7 +171,7 @@ public class WallRecyclerViewAdapter extends RecyclerView
 
         String url = mDataset.get(position).getmText4();
 
-        Picasso.with(context).load(url).error(R.drawable.ic_history_black_24dp).placeholder(R.drawable.progress_animation).into(holder.post_image);
+        Picasso.with(context).load(url).fit().error(R.drawable.ic_history_black_24dp).placeholder(R.drawable.progress_animation).into(holder.post_image);
 
         //WallPicassoImageLoadTask imageLoadTask = new WallPicassoImageLoadTask(url,holder.post_image,context);
 

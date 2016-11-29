@@ -299,38 +299,8 @@ public class AddPostActivity extends AppCompatActivity {
 
     }
 
-    public void imagesend() {
-        /*
-        Ion.with(getBaseContext()).load("POST", "http://uploads.im/api").uploadProgressHandler(new ProgressCallback() {
-            @Override
-            public void onProgress(long uploaded, long total) {
-                System.out.println("uploaded " + (int) uploaded + " Total: " + total);
-            }
-        }).setMultipartParameter("platform", "android").setMultipartFile("image", f).asString().setCallback(new FutureCallback<String>() {
-            @Override
-            public void onCompleted(Exception e, String result) {
-                try {
-
-                    JSONObject jsonObject = new JSONObject(result);
-
-                    String data = jsonObject.getString("data");
-
-                    JSONObject inerJson = new JSONObject(data);
-
-                    picture_url = inerJson.getString("img_url");
-
-                    Log.d("picture_url", picture_url);
-
-
-                } catch (JSONException ee) {
-                    Log.d("JSONException", ee + "");
-                }
-            }
-        });
-        */
-        //jhwavdghevfgds
-
-
+    public void imagesend()
+    {
         Ion.with(getBaseContext()).load("POST","http://uploads.im/api").uploadProgressHandler(new ProgressCallback()
         {
             @Override
@@ -343,7 +313,7 @@ public class AddPostActivity extends AppCompatActivity {
             @Override
             public void onCompleted(Exception e, String result)
             {
-                Log.d("imageresult",result);
+                // Log.d("imageresult",result);
 
                 try {
 
@@ -357,7 +327,7 @@ public class AddPostActivity extends AppCompatActivity {
 
                     Log.d("picture_url",picture_url);
 
-
+                    //progressBar.setVisibility(View.GONE);
                 }
                 catch (JSONException ee)
                 {
@@ -371,6 +341,4 @@ public class AddPostActivity extends AppCompatActivity {
 
 
 
-
-    }
-
+}
