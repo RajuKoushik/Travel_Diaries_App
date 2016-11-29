@@ -2,9 +2,11 @@ package com.infinium.rajukoushik.traveldiaries;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,6 +41,8 @@ import java.util.Map;
 
 public class IntroActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public static final String JSON_URL_USERNAME = "http://192.168.43.178:8000/td/get/user_details/";
     public static final String JSON_URL_WALLPOSTS = "http://192.168.43.178:8000/td/get/wall_posts/";
@@ -100,6 +104,19 @@ public class IntroActivity extends AppCompatActivity
             }
         });
 
+        // /You will setup the action bar with pull to refresh layout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.container);
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.blue,
+                R.color.green, R.color.orange, R.color.purple);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.e(getClass().getSimpleName(), "refresh");
+                new GetLinks().execute();
+            }
+        });
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -130,7 +147,49 @@ public class IntroActivity extends AppCompatActivity
 
 
     }
+    public class GetLinks extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            //Here you can update the view
+            //update the view here
+            sendRequest();
+
+            //testing
+            mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(IntroActivity.this);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+            //end of testing
+
+
+            // Notify swipeRefreshLayout that the refresh has finished
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
+    }
 
     private ArrayAdapter<String> getEmailAddressAdapter(Context context) {
 

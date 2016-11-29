@@ -105,6 +105,16 @@
 
     </ScrollView>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_below="@+id/addPost"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:background="@drawable/btnbg1"
@@ -113,6 +123,10 @@
         android:elevation="5dp"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 
 </RelativeLayout>
