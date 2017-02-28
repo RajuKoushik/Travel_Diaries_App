@@ -30,6 +30,9 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
             URL urlConnection = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) urlConnection
                     .openConnection();
+            connection.setRequestMethod("GET");
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
@@ -44,7 +47,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap result) {
         super.onPostExecute(result);
-
         imageView.setImageBitmap(result);
     }
 
