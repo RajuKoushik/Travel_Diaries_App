@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IntroActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements LoaderManager.LoaderCallbacks<Void>, NavigationView.OnNavigationItemSelectedListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -113,7 +116,7 @@ public class IntroActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 Log.e(getClass().getSimpleName(), "refresh");
-                new GetLinks().execute();
+                getSupportLoaderManager().initLoader(0, null, IntroActivity.this).forceLoad();
             }
         });
 
@@ -147,16 +150,42 @@ public class IntroActivity extends AppCompatActivity
 
 
     }
-    public class GetLinks extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
 
+    @Override
+    public Loader<Void> onCreateLoader(int id, Bundle args) {
+        return new GetLinks(IntroActivity.this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Void> loader, Void data) {
+        sendRequest();
+
+        //testing
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(IntroActivity.this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        //end of testing
+
+        // Notify swipeRefreshLayout that the refresh has finished
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Void> loader) {
+        Log.e(LOG_TAG, "Loader Reset method called");
+        getSupportLoaderManager().restartLoader(0, null, IntroActivity.this).forceLoad();
+    }
+
+    public class GetLinks extends AsyncTaskLoader<Void> {
+
+        public GetLinks(Context context) {
+            super(context);
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-
+        public Void loadInBackground() {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
@@ -166,29 +195,6 @@ public class IntroActivity extends AppCompatActivity
             }
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            //Here you can update the view
-            //update the view here
-            sendRequest();
-
-            //testing
-            mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManager = new LinearLayoutManager(IntroActivity.this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-
-
-            //end of testing
-
-
-            // Notify swipeRefreshLayout that the refresh has finished
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
-
     }
 
     private ArrayAdapter<String> getEmailAddressAdapter(Context context) {
