@@ -162,14 +162,11 @@ public class IntroActivity extends AppCompatActivity
 
         //testing
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(IntroActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
         //end of testing
-
 
         // Notify swipeRefreshLayout that the refresh has finished
         mSwipeRefreshLayout.setRefreshing(false);
@@ -178,6 +175,7 @@ public class IntroActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<Void> loader) {
         Log.e(LOG_TAG, "Loader Reset method called");
+        getSupportLoaderManager().restartLoader(0, null, IntroActivity.this).forceLoad();
     }
 
     public class GetLinks extends AsyncTaskLoader<Void> {
